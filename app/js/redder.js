@@ -169,7 +169,7 @@ function fetchSubreddits() {
 }
 
 function getReddit() {
-  fetchSubreddits();
+  // fetchSubreddits();
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then( reg => {
       return reg.sync.register('subreddits');
@@ -181,4 +181,4 @@ function getReddit() {
   }
 }
 
-fetchSubreddits();
+// fetchSubreddits();

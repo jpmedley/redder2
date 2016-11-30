@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
- 'use strict';
+'use strict';
 
 var gulp = require('gulp');
+// var builder = require('./gulp-tasks');
+var builder = require('./builder.js');
 var webserver = require('gulp-webserver');
-
-requireDir('./gulp-tasks');
 
 var rootDir = 'app';
 var version = '200';
@@ -35,5 +35,5 @@ gulp.task('serve', function(callback) {
 });
 
 gulp.task('build', function(callback) {
-
+	builder.buildIndex();
 })
