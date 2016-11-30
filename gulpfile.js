@@ -19,6 +19,8 @@
 var gulp = require('gulp');
 var webserver = require('gulp-webserver');
 
+requireDir('./gulp-tasks');
+
 var rootDir = 'app';
 var version = '200';
 
@@ -31,3 +33,7 @@ gulp.task('serve', function(callback) {
 			fallback: 'index.html'
 		}))
 });
+
+gulp.task('build', function(callback) {
+
+})
