@@ -16,8 +16,8 @@
 
 'use strict';
 
+var del = require('del');
 var gulp = require('gulp');
-// var builder = require('./gulp-tasks');
 var builder = require('./builder.js');
 var webserver = require('gulp-webserver');
 
@@ -33,6 +33,14 @@ gulp.task('serve', function(callback) {
 			fallback: 'index.html'
 		}))
 });
+
+gulp.task('clean', function(callback) {
+	var filesToDelete = [
+		rootDir + '/index.html'
+	];
+	var opts = {dryRun: false, dot: true};
+    del.sync(filesToDelete, opts);
+})
 
 gulp.task('build', function(callback) {
 	builder.buildIndex();
