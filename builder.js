@@ -47,13 +47,6 @@ function addSubReddits(document) {
       linkEl.appendChild(linkText);
       var navEl = document.querySelector('.mdl-navigation');
       var linkNode = navEl.appendChild(linkEl);
-
-      linkNode.addEventListener('click', e => {
-        fetchTopics(e.target.firstChild.nodeValue);
-        navigator.serviceWorker.ready.then( reg => {
-          return reg.sync.register('articles');
-        })
-      });
     }
   }).catch( ex => {
     console.log('[Redder] Parsing failed: ', ex);
@@ -72,7 +65,6 @@ function buildIndex() {
     addSubReddits(window.document)
       .then(function() {
         var contents = domToString(window.document);
-        console.log(contents);
         fs.writeFileSync('app/index.html', contents, 'utf8');
         window.close();
       })

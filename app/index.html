@@ -55,6 +55,21 @@
   </div>
 
 <script>
+    window.addEventListener("DOMContentLoaded", function() {
+      var navEls = document.querySelectorAll('.mdl-navigation__link');
+      navEls.forEach(function(navEl, index, navEls) {
+        navEl.addEventListener('click', e => {
+          fetchTopics(e.target.firstChild.nodeValue);
+        });
+      });
+      console.log(navEl);
+      // var linkNode = navEl.appendChild(linkEl);
+      // linkNode.addEventListener('click', e => {
+      //   fetchTopics(e.target.firstChild.nodeValue);
+      // });
+    }, false);
+</script>
+<script>
 //   if ('serviceWorker' in navigator) {
 //     console.log("[Redder] Will service worker register?");
 //     navigator.serviceWorker.register('serviceworker.js').then( reg => {
