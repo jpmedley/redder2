@@ -29,8 +29,11 @@ function createFullElement(elementName, attributeData) {
 
 function fetchArticle(url) {
   var req = new Request(url, {mode: 'cors'});      
-  fetch(req).then(res => {
-    res.json().then( json => {
+  fetch(req)
+    .then(response => {
+      return response.json();
+    })
+    .then( json => {
       var post = json[0];
       var articleDiv = document.createElement('div');
       post.data.children.forEach( child => {
@@ -72,100 +75,106 @@ function fetchArticle(url) {
 
 function fetchTopics(url) {
   if (url) {
-    fetch('https://www.reddit.com/r/' + url + '.json').then( response => {
-      return response.json();
-    }).then( json => {
-      var articleList = createFullElement('ul', {
-        'class': 'demo-list-three mdl-list'
-      });
-
-      for (var i = 0; i < json.data.children.length; i++) {
-        //Make the enclosing list item.
-        var articleItem = createFullElement('li', {
-          'class': 'mdl-list__item mdl-list__item--three-line'
+    fetch('https://www.reddit.com/r/' + url + '.json')
+      .then( response => {
+        return response.json();
+      })
+      .then( json => {
+        var articleList = createFullElement('ul', {
+          'class': 'demo-list-three mdl-list'
         });
 
-        //Make the primary content span.
-        var primarySpan = createFullElement('span', {
-          'class': 'mdl-list__item-primary-content'
-        });
+        for (var i = 0; i < json.data.children.length; i++) {
+          //Make the enclosing list item.
+          var articleItem = createFullElement('li', {
+            'class': 'mdl-list__item mdl-list__item--three-line'
+          });
 
-        //Make the article link.
-        var anImage = createFullElement('i', {
-          'class': 'material-icons mdl-list__item-avatar'
-        });
+          //Make the primary content span.
+          var primarySpan = createFullElement('span', {
+            'class': 'mdl-list__item-primary-content'
+          });
 
-        var someText = document.createTextNode('person');
-        anImage.appendChild(someText);
-        primarySpan.appendChild(anImage);
+          //Make the article link.
+          var anImage = createFullElement('i', {
+            'class': 'material-icons mdl-list__item-avatar'
+          });
 
-        //var linkSpan = document.createElement('span');
-        var linkSpan = createFullElement('span', {
-          'class': 'mdl-list__item-text-body'
-        });
+          var someText = document.createTextNode('person');
+          anImage.appendChild(someText);
+          primarySpan.appendChild(anImage);
 
-        //ToDo: Add indicator for whether article will load here or in a new tab.
-        var contentLink = createFullElement('a', {
-          'href': json.data.children[i].data.url
-        })
-        contentLink.addEventListener('click', e => {
-          e.preventDefault();
-          if (e.target.href.indexOf('www.reddit.com') > -1) {
-            fetchArticle(e.target.href.slice(0, -1) + '.json');
-          } else {
-            window.open(e.target.href, '_blank');
-          }
-        });
+          //var linkSpan = document.createElement('span');
+          var linkSpan = createFullElement('span', {
+            'class': 'mdl-list__item-text-body'
+          });
 
-        var linkText = document.createTextNode(json.data.children[i].data.title);
-        contentLink.appendChild(linkText);
-        linkSpan.appendChild(contentLink);
-        primarySpan.appendChild(linkSpan);
+          //ToDo: Add indicator for whether article will load here or in a new tab.
+          var contentLink = createFullElement('a', {
+            'href': json.data.children[i].data.url
+          })
+          contentLink.addEventListener('click', e => {
+            e.preventDefault();
+            if (e.target.href.indexOf('www.reddit.com') > -1) {
+              fetchArticle(e.target.href.slice(0, -1) + '.json');
+            } else {
+              window.open(e.target.href, '_blank');
+            }
+          });
 
-        //Make the subtitle line.
-        var subtitleSpan = document.createElement('span');
+          var linkText = document.createTextNode(json.data.children[i].data.title);
+          contentLink.appendChild(linkText);
+          linkSpan.appendChild(contentLink);
+          primarySpan.appendChild(linkSpan);
 
-        var subtitleText = document.createTextNode(' ' +json.data.children[i].data.author + ' — ' + json.data.children[i].data.num_comments + ' comments');
-        subtitleSpan.appendChild(subtitleText);
-        linkSpan.appendChild(subtitleSpan);
-        articleItem.appendChild(primarySpan);
-        articleList.appendChild(articleItem);
-      };
-      var contentEl = document.querySelector('.page-content');
-      if (contentEl.hasChildNodes) {
-        contentEl.removeChild(contentEl.firstChild);
-      }
-      contentEl.appendChild(articleList);
+          //Make the subtitle line.
+          var subtitleSpan = document.createElement('span');
+
+          var subtitleText = document.createTextNode(' ' +json.data.children[i].data.author + ' — ' + json.data.children[i].data.num_comments + ' comments');
+          subtitleSpan.appendChild(subtitleText);
+          linkSpan.appendChild(subtitleSpan);
+          articleItem.appendChild(primarySpan);
+          articleList.appendChild(articleItem);
+        };
+
+        var contentEl = document.querySelector('.page-content');
+        if (contentEl.hasChildNodes) {
+          contentEl.removeChild(contentEl.firstChild);
+        }
+        contentEl.appendChild(articleList);
     });
   }
 }
 
 function fetchSubreddits() {
   var subredditsByTopicUrl = 'https://www.reddit.com/api/subreddits_by_topic.json?query=javascript';
-  fetch(subredditsByTopicUrl).then( response => {
-    return response.json();
-  }).then( json => {
-    for (var k = 0; k < json.length; k++) {
-      var linkEl = createFullElement('a', {
-        'class': 'mdl-navigation__link',
-        'href': '#' + json[k].name
-      });
+  fetch(subredditsByTopicUrl)
+    .then( response => {
+      return response.json();
+    })
+    .then( json => {
+      for (var k = 0; k < json.length; k++) {
+        var linkEl = createFullElement('a', {
+          'class': 'mdl-navigation__link',
+          'href': '#' + json[k].name
+        });
 
-      var linkText = document.createTextNode(json[k].name);
-      linkEl.appendChild(linkText);
-      var navEl = document.querySelector('.mdl-navigation');
-      var linkNode = navEl.appendChild(linkEl);
+        var linkText = document.createTextNode(json[k].name);
+        linkEl.appendChild(linkText);
+        var navEl = document.querySelector('.mdl-navigation');
+        var linkNode = navEl.appendChild(linkEl);
 
-      linkNode.addEventListener('click', e => {
-        fetchTopics(e.target.firstChild.nodeValue);
-        navigator.serviceWorker.ready.then( reg => {
-          return reg.sync.register('articles');
-        })
-      });
-    }
-  }).catch( ex => {
-    console.log('[Redder] Parsing failed: ', ex);
-  });
+        linkNode.addEventListener('click', e => {
+          fetchTopics(e.target.firstChild.nodeValue);
+          navigator.serviceWorker.ready.then( reg => {
+            return reg.sync.register('articles');
+          })
+        });
+      }
+    })
+    .catch( ex => {
+      console.log('[Redder] Parsing failed: ', ex);
+    });
 }
 
 function getReddit() {
