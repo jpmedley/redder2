@@ -8,7 +8,9 @@
     "gulp-webserver": "^0.9.1",
     "node-fetch": "^1.6.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "sw-lib": "0.0.8"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
