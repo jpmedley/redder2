@@ -69,8 +69,7 @@ function fetchArticle(url) {
         }
       }
       articleEl.appendChild(articleDiv);
-    })
-  })
+    });
 }
 
 function fetchTopics(url) {
