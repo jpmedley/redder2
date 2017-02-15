@@ -1,3 +1,4 @@
 node_modules/
 .DS_Store
 app/index.html
+app/js/sw-lib.min.js
