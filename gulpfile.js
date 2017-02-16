@@ -24,7 +24,7 @@ var webserver = require('gulp-webserver');
 var rootDir = 'app';
 var version = '200';
 
-gulp.task('serve', function(callback) {
+gulp.task('serve', function(cb) {
 	gulp.src(rootDir)
 		.pipe(webserver({
 			livereload: true,
@@ -34,7 +34,7 @@ gulp.task('serve', function(callback) {
 		}))
 });
 
-gulp.task('clean', function(callback) {
+gulp.task('clean', function(cb) {
 	var filesToDelete = [
 		rootDir + '/index.html'
 	];
@@ -42,6 +42,6 @@ gulp.task('clean', function(callback) {
     del.sync(filesToDelete, opts);
 })
 
-gulp.task('build', function(callback) {
+gulp.task('build', function(cb) {
 	builder.buildIndex();
 })

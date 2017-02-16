@@ -15,13 +15,12 @@
  */
  'use strict';
 
-// I had to copy this from the node_modules directory. Is that what you intended?
 importScripts('js/sw-lib.min.js');
 
-// What this line prints seems a little 'under the hood'.
+// This is in many of the examples. Why would an external developer want to do this?
 console.log(self.goog.swlib);
 
-// I don't see these in cache. Break on command is never reached.
+// I assume I should NOT cache sw-lib.min.js. Correct?
 goog.swlib.cacheRevisionedAssets([
 	{
 		url: '/index.html',
@@ -29,6 +28,24 @@ goog.swlib.cacheRevisionedAssets([
 	},
 	{
 		url: '/message.html',
+		revision: '001' // Using a const here would mean that every rev was
+		                // incremented whether I changed it or not. Is this a good
+		                // idea, a bad idea, or does it even matter?
+	},
+	{
+		url: '/js/redder.js', // Can I pass an array to url, a glob, or a regex?
+		revision: '001'
+	},
+	{
+		url: '/images/dog.png',
+		revision: '001'
+	},
+	{
+		url: '/images/dog155x155.png',
+		revision: '001'
+	},
+	{
+		url: '/css/styles.css',
 		revision: '001'
 	}
 ])
