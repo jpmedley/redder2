@@ -20,6 +20,8 @@ importScripts('js/sw-lib.min.js');
 // This is in many of the examples. Why would an external developer want to do this?
 console.log(self.goog.swlib);
 
+// PRECACING
+
 // I assume I should NOT cache sw-lib.min.js. Correct?
 goog.swlib.cacheRevisionedAssets([
 	{
@@ -49,3 +51,14 @@ goog.swlib.cacheRevisionedAssets([
 		revision: '001'
 	}
 ])
+
+// RUNTIME CACHING
+
+const staleWhileRevalidateStrategy = goog.swlib.staleWhileRevalidate();
+
+//Titles
+
+// So registerRoute() appears to take a specific path. What if I need to cover
+// a glob or a regex?
+goog.swlib.router.registerRoute(/https:\/\/www\.reddit\.com\/r\/\w{1,255}\.json/, 
+													 staleWhileRevalidateStrategy);
