@@ -74,6 +74,7 @@ function fetchArticle(url) {
 
 function fetchTopics(url) {
   if (url) {
+    if (url.indexOf('#') > -1) { url = url.slice(1) }
     fetch('https://www.reddit.com/r/' + url + '.json')
       .then( response => {
         return response.json();

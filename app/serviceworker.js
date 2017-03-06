@@ -15,10 +15,11 @@
  */
  'use strict';
 
-importScripts('js/sw-lib.min.js');
+// importScripts('js/sw-lib.min.js');
+importScripts('sw-lib.js');
 
 // This is in many of the examples. Why would an external developer want to do this?
-console.log(self.goog.swlib);
+// console.log(self.goog.swlib);
 
 // PRECACING
 
