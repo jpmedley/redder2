@@ -22,7 +22,7 @@ var builder = require('./builder.js');
 var swBuild = require('sw-build');
 var webserver = require('gulp-webserver');
 
-var rootDir = './app/';
+var rootDir = './app';
 var version = '200';
 
 gulp.task('serve', function(cb) {

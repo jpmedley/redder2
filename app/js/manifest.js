@@ -5,7 +5,7 @@ self.__file_manifest = [
   },
   {
     "url": "/js/manifest.js",
-    "revision": "217141030d5740aebc255727dc39de06"
+    "revision": "7840c80df34fad9c1c960e10b6a9012f"
   },
   {
     "url": "/js/redder.js",
@@ -29,7 +29,7 @@ self.__file_manifest = [
   },
   {
     "url": "/../gulpfile.js",
-    "revision": "a53419e442f0226deb963fcd6c6adf38"
+    "revision": "11d9a21edbe08516975be77595b95e67"
   },
   {
     "url": "/../index.html",
