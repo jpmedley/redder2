@@ -19,9 +19,10 @@
 var del = require('del');
 var gulp = require('gulp');
 var builder = require('./builder.js');
+var swBuild = require('sw-build');
 var webserver = require('gulp-webserver');
 
-var rootDir = 'app';
+var rootDir = './app/';
 var version = '200';
 
 gulp.task('serve', function(cb) {
@@ -43,5 +44,32 @@ gulp.task('clean', function(cb) {
 })
 
 gulp.task('build', function(cb) {
+	gulp.start('clean');
 	builder.buildIndex();
+
+	swBuild.generateFileManifest({
+		rootDirectory: rootDir,
+		dest: rootDir + '/js/manifest.js',
+		globPatterns: ['**\/*.{html,js,css}'],
+	})
+	.then(() => {
+		console.log('Build file has been created.');
+	});
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
